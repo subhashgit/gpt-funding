@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Description{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('company') }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('company') }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-2xl font-bold mb-6">Edit your company</h1>
+    {{ form_start(form) }}
+
+    {{ form_rest(form) }}
+    {% if app.user.points > 0 %}
+        <div>
+            <button type="submit"
+                    id="user_company_Submit"
+                    data-controller="submit-button"
+                    data-submit-button-target="button"
+                    data-action="click->submit-button#preventMultipleSubmits"
+                    class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                Submit
+            </button>
+        </div>
+    {% else %}
+        <div>
+            <button type="button"
+                    id="user_company_Submit"
+                    name="user_company[Submit]"
+                    data-hs-overlay="#hs-basic-modal"
+                    class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                Submit
+            </button>
+        </div>
+    {% endif %}
+{#    <p class="text-xs mt-2 text-gray-600">Clicking on this button will consume 1 credit</p>#}
+
+    {{ form_end(form) }}
+
+    {{ include('modals/no-points.html.twig', {
+        message: 'You do need to be subscribed to make this action. Please upgrade your account.'
+    }) }}
+
+{% endblock %}

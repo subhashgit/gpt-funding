@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Grants List{% endblock %}
+
+{% block body %}
+    {{ component('GrantSearch') }}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{#    {{ include('utils/subscribe-banner.html.twig') }}#}
+{% endblock %}

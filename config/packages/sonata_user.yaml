@@ -1,0 +1,19 @@
+sonata_user:
+  class:
+    user: App\Entity\User
+  resetting:
+    email:
+      address: sonata@localhost
+      sender_name: Sonata Admin
+  impersonating:
+    route: sonata_admin_dashboard
+    parameters: { path: / }
+  admin: # Admin Classes
+    user:
+      class: App\Admin\UserAdmin
+#      controller: App\Controller\UserAdminController
+      translation: messages
+
+services:
+  Sonata\UserBundle\Entity\UserManager: '@sonata.user.manager.user'
+  Sonata\UserBundle\Model\UserManagerInterface: '@sonata.user.manager.user'

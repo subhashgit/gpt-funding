@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- Blog Article -->
+    <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+        <div class="grid gap-y-12 lg:gap-y-0 lg:gap-x-12">
+            <!-- Content -->
+            <div class="lg:col-span-2">
+                <div class="py-8 lg:pe-8">
+                    <div class="space-y-5 lg:space-y-8">
+                        <a class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                           href="{{ path('app_grant_request') }}">
+                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6"/>
+                            </svg>
+                            Back to List
+                        </a>
+
+                        <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
+                            {{ grantRequest.grant.title|title }}
+                        </h2>
+
+                        <div class="flex items-center gap-x-5">
+                            <a class="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-800 dark:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                               href="#">
+                                {{ grantRequest.status.label }}
+                            </a>
+                            <p class="text-xs sm:text-sm text-gray-800 dark:text-gray-200">
+                                {{ grantRequest.updatedAt|format_datetime }}
+                            </p>
+                        </div>
+
+                        {{ grantRequest.text|replace(
+                            {
+                                '<ul>': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 text-lg">': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                '<p>': '<p class="text-lg text-gray-800 dark:text-gray-200">',
+                                '</ul>': '</ul>',
+                            }
+                        )|raw }}
+
+                        {{ form_start(formRequest) }}
+                            <div class="p-4 overflow-y-auto">
+                                <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Project Overview</label>
+                                {{ form_widget(formRequest.projectOverview) }}
+                            </div>
+                            <div class="p-4 overflow-y-auto">
+                                <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Budget Breakdown</label>
+                                {{ form_widget(formRequest.budgetBreakdown) }}
+                            </div>
+                            <div class="p-4 overflow-y-auto">
+                                <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Status</label>
+                                {{ form_widget(formRequest.status) }}
+                            </div>
+                            <div class="p-4 overflow-y-auto">
+                                <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Date Submitted</label>
+                                {{ form_widget(formRequest.dateSubmitted) }}
+                            </div>
+                            <div class="p-4 overflow-y-auto">
+                                <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Value</label>
+                                {{ form_widget(formRequest.value) }}
+                            </div>
+                            <div class="p-4 overflow-y-auto">
+                                <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Expected Decision</label>
+                                {{ form_widget(formRequest.expectedDecision) }}
+                            </div>
+                        {{ form_end(formRequest) }}
+                    </div>
+                </div>
+                <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+                    <input type="submit"
+                            form="grant_suggestion_form"
+                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                </div>
+            </div>
+            <!-- End Content -->
+
+            <!-- Sidebar -->
+
+            <!-- End Sidebar -->
+        </div>
+    </div>
+    <!-- End Blog Article -->
+{% endblock %}
+
+{% block title %}
+    {{ grantRequest.grant.title|title }}
+{% endblock %}
+

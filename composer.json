@@ -1,0 +1,144 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.2",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.15",
+        "dragonmantank/cron-expression": "^3.3",
+        "friendsofsymfony/ckeditor-bundle": "^2.4",
+        "jabranr/postcodes-io": "^2.0",
+        "knplabs/doctrine-behaviors": "*",
+        "knplabs/knp-paginator-bundle": "^6.2",
+        "league/html-to-markdown": "^5.1",
+        "martin-georgiev/postgresql-for-doctrine": "^2.1",
+        "meilisearch/search-bundle": "^0.13.0",
+        "moneyphp/money": "^4.1",
+        "nesbot/carbon": "^2.67",
+        "nyholm/psr7": "^1.8",
+        "openai-php/client": "^0.7",
+        "php-http/guzzle7-adapter": "^1.0",
+        "php-http/message": "^1.16",
+        "php-http/message-factory": "^1.1",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.22",
+        "psr/http-factory": "^1.0",
+        "revolution/laravel-google-sheets": "^6.2",
+        "sonata-project/admin-bundle": "*",
+        "sonata-project/doctrine-orm-admin-bundle": "^4.13",
+        "sonata-project/user-bundle": "^5.10",
+        "stajor/proxy-fetcher": "^3.7",
+        "stripe/stripe-php": "^13.7",
+        "symfony/console": "6.4.*",
+        "symfony/css-selector": "6.4.*",
+        "symfony/doctrine-messenger": "6.4.*",
+        "symfony/dom-crawler": "6.4.*",
+        "symfony/dotenv": "6.4.*",
+        "symfony/event-dispatcher": "6.4.*",
+        "symfony/flex": "^2",
+        "symfony/form": "6.4.*",
+        "symfony/framework-bundle": "6.4.*",
+        "symfony/http-client": "^6.4",
+        "symfony/mailer": "6.4.*",
+        "symfony/mailgun-mailer": "6.4.*",
+        "symfony/messenger": "6.4.*",
+        "symfony/monolog-bundle": "^3.10",
+        "symfony/password-hasher": "6.4.*",
+        "symfony/property-access": "6.4.*",
+        "symfony/property-info": "6.4.*",
+        "symfony/proxy-manager-bridge": "6.4.*",
+        "symfony/psr-http-message-bridge": "^2.2",
+        "symfony/runtime": "6.4.*",
+        "symfony/scheduler": "6.4.*",
+        "symfony/security-bundle": "6.4.*",
+        "symfony/sendgrid-mailer": "6.4.*",
+        "symfony/serializer": "6.4.*",
+        "symfony/stimulus-bundle": "^2.9",
+        "symfony/string": "6.4.*",
+        "symfony/twig-bundle": "6.4.*",
+        "symfony/uid": "6.4.*",
+        "symfony/ux-live-component": "^2.16",
+        "symfony/ux-twig-component": "^2.16",
+        "symfony/validator": "6.4.*",
+        "symfony/webhook": "6.4.*",
+        "symfony/webpack-encore-bundle": "^2.0",
+        "symfony/yaml": "6.4.*",
+        "symfonycasts/reset-password-bundle": "^1.17",
+        "symfonycasts/verify-email-bundle": "^1.13",
+        "twig/cssinliner-extra": "^3.6",
+        "twig/extra-bundle": "^3.7",
+        "twig/intl-extra": "^3.6",
+        "twig/string-extra": "^3.7",
+        "twig/twig": "^2.12|^3.0",
+        "yohang88/letter-avatar": "^2.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "ckeditor:install --clear=drop --release=full --tag=4.22.1": "symfony-cmd",
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "pre-autoload-dump": "Google\\Task\\Composer::cleanup"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.4.*"
+        },
+        "google/apiclient-services": [
+            "Drive"
+        ]
+    },
+    "require-dev": {
+        "deployer/deployer": "^7.3",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "friendsofphp/php-cs-fixer": "^3.17",
+        "symfony/debug-bundle": "6.4.*",
+        "symfony/maker-bundle": "^1.48",
+        "symfony/stopwatch": "6.4.*",
+        "symfony/web-profiler-bundle": "6.4.*"
+    }
+}

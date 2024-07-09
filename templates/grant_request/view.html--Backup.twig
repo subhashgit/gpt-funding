@@ -1,0 +1,205 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <!-- Blog Article -->
+    <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+        <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
+            <!-- Content -->
+            <div class="lg:col-span-2">
+                <div class="py-8 lg:pe-8">
+                    <div class="space-y-5 lg:space-y-8">
+                        <a class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                           href="{{ path('app_grant_request') }}">
+                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6"/>
+                            </svg>
+                            Back to List
+                        </a>
+
+                        <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
+                            {{ grantRequest.grant.title|title }}
+                        </h2>
+
+                        <div class="flex items-center gap-x-5">
+                            <a class="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-800 dark:text-gray-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                               href="#">
+                                {{ grantRequest.status.label }}
+                            </a>
+                            <p class="text-xs sm:text-sm text-gray-800 dark:text-gray-200">
+                                {{ grantRequest.updatedAt|format_datetime }}
+                            </p>
+                        </div>
+
+                        {{ grantRequest.text|replace(
+                            {
+                                '<ul>': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 text-lg">': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                '<p>': '<p class="text-lg text-gray-800 dark:text-gray-200">',
+                                '</ul>': '</ul>',
+                            }
+                        )|raw }}
+                    </div>
+                </div>
+                 {{ form_start(formRequest) }}
+                <div class="p-4 overflow-y-auto">
+                    <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Project Overview</label>
+                    {{ form_widget(formRequest.projectOverview) }}
+                </div>
+                <div class="p-4 overflow-y-auto">
+                    <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Budget Breakdown</label>
+                    {{ form_widget(formRequest.budgetBreakdown) }}
+                </div>
+                {{ form_end(formRequest) }}
+                <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+                    <input type="submit"
+                            form="grant_suggestion_form"
+                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                </div>
+            </div>
+            <!-- End Content -->
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1 lg:w-full lg:h-full lg:bg-gradient-to-r lg:from-gray-50 lg:via-transparent lg:to-transparent dark:from-slate-800">
+                <div class="sticky top-0 start-0">
+
+                    <div class="space-y-6">
+                        <!-- Content -->
+                        <div class="">
+                            <div class="py-10 lg:py-14">
+
+
+                                <ul class="space-y-5">
+                                    <li class="max-w-4xl py-2 px-4 sm:px-6 lg:px-8 mx-auto  gap-x-2 sm:gap-x-4">
+                                        {# {{ form_start(formRequest) }}
+                                        <div class="p-4 overflow-y-auto">
+                                            <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Project Overview</label>
+                                            {{ form_widget(formRequest.projectOverview) }}
+                                        </div>
+                                        <div class="p-4 overflow-y-auto">
+                                            <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Budget Breakdown</label>
+                                            {{ form_widget(formRequest.budgetBreakdown) }}
+                                        </div> #}
+                                         
+                                          {#         <div class="p-4 overflow-y-auto"> #}
+                                        {#                    <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Email</label> #}
+                                        {#                    <textarea type="email" id="input-label" #}
+                                        {#                              class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                                        {#                              placeholder="you@site.com" autofocus> #}
+                                        {#                    </textarea> #}
+                                        {#                </div> #}
+                                        {# {{ form_end(formRequest) }}
+                                        <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+                                            <input type="submit"
+                                                   form="grant_suggestion_form"
+                                                   class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                        </div> #}
+                                    </li>
+                                </ul>
+                                {# <ul class="space-y-5">
+                                    <!-- Chat Bubble -->
+                                    <li class="max-w-4xl py-2 px-4 sm:px-6 lg:px-8 mx-auto flex gap-x-2 sm:gap-x-4">
+                                        <img src="{{ asset('build/img/Fundin4.png') }}" alt="logo" height="38px"
+                                             width="38px" style="height: 38px; width: 38px">
+
+                                        <div class="space-y-3">
+                                            <h2 class="font-medium text-gray-800 dark:text-white">
+                                                How can we help?
+                                            </h2>
+                                        </div>
+                                    </li>
+                                    <!-- End Chat Bubble -->
+
+                                    {% for message in messages %}
+                                        <li class="py-2 sm:py-4">
+                                            <div class="max-w-4xl px-4 sm:px-6 lg:px-8 mx-auto">
+                                                <div class="max-w-2xl flex gap-x-2 sm:gap-x-4">
+
+                                                    {% if message.author.id == app.user.id %}
+                                                        <span class="flex-shrink-0 inline-flex items-center justify-center size-[38px] rounded-full bg-gray-600">
+                                      <span class="text-sm font-medium text-white leading-none">
+                                          <img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-white dark:ring-gray-800"
+                                               src="{{ avatar(app.user.email, 64, '') }}"
+                                               alt="Image Description">
+                                      </span>
+                                    </span>
+                                                    {% endif %}
+
+                                                    <div class="grow mt-2 space-y-3 {% if message.author.id != app.user.id %}text-right{% endif %}">
+                                                        <p class="text-gray-800 dark:text-gray-200">
+                                                            {{ message.text }}
+                                                        </p>
+                                                    </div>
+
+                                                    {% if message.author.id != app.user.id %}
+                                                        <span class="flex-shrink-0 inline-flex items-center justify-center size-[38px] rounded-full">
+                                      <span class="text-sm font-medium text-white leading-none">
+                                          <img src="{{ asset('build/img/Fundin4.png') }}" alt="logo" height="38px"
+                                               width="38px" style="height: 38px; width: 38px">
+                                      </span>
+                                    </span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul> #}
+                            </div>
+
+                            <!-- Search -->
+                            {# <footer class="sticky bottom-0 z-10 bg-white border-t border-gray-200 pt-2 pb-3 sm:pt-4 sm:pb-6 dark:bg-slate-900 dark:border-gray-700">
+                                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                                    <div class="flex justify-between items-center mb-3">
+
+                                    </div>
+
+                                    <!-- Input -->
+                                    <div class="relative">
+                                        {{ form_start(messageForm) }}
+                                        {{ form_row(messageForm.text) }}
+                                        <!-- Toolbar -->
+                                        <div class="absolute bottom-px inset-x-px p-2 rounded-b-md bg-white dark:bg-slate-900">
+                                            <div class="flex justify-between items-center">
+                                                <!-- Button Group -->
+                                                <div class="flex items-center gap-x-1">
+                                                    <!-- Send Button -->
+                                                    <button type="submit"
+                                                            class="inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg text-white bg-blue-600 hover:bg-blue-500 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                                        <svg class="flex-shrink-0 size-3.5"
+                                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                             fill="currentColor" viewBox="0 0 16 16">
+                                                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <!-- End Send Button -->
+                                                </div>
+                                                <!-- End Button Group -->
+                                            </div>
+                                        </div>
+                                        <!-- End Toolbar -->
+                                        {{ form_end(messageForm) }}
+
+                                    </div>
+                                    <!-- End Input -->
+                                </div>
+                            </footer> #}
+                            <!-- End Search -->
+                        </div>
+                        <!-- End Content -->
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- End Sidebar -->
+        </div>
+    </div>
+    <!-- End Blog Article -->
+{% endblock %}
+
+{% block title %}
+    {{ grantRequest.grant.title|title }}
+{% endblock %}
+

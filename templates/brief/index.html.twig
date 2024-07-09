@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Briefing{% endblock %}
+
+{% block body %}
+    {% set questions = {
+        'What are you looking to achieve with Fundin?': [
+            'Find more funding opportunities',
+            'Save time writing funding applications',
+            'Fully outsource your bid writing'
+        ],
+        'How many applications do you submit a month?': [
+            '0',
+            '1-3',
+            '4-6',
+            '7-10',
+            '10+',
+        ],
+        'On average, how long do you spend looking for grants each week?': [
+            '<1 hour',
+            '1 to 3 hours',
+            '3 to 5 hours',
+            'More than 5 hours',
+        ],
+        'On average, how long do you spend writing grants each week?': [
+            '<1 hour',
+            '1 to 3 hours',
+            '3 to 5 hours',
+            'More than 5 hours',
+        ],
+        'What is your current success rate?': [
+            '0% - 20%',
+            '21% to 30%',
+            '31% to 50%',
+            '50% +',
+        ]
+    } %}
+    <!-- Stepper -->
+    <div data-hs-stepper='{"mode":"linear"}'>
+        <!-- Stepper Nav -->
+        <ul class="relative flex flex-row gap-x-2">
+            {% for question in questions %}
+                <li class="flex items-center gap-x-2 shrink basis-0 flex-1 group"
+                    data-hs-stepper-nav-item='{"index": {{ loop.index }}}'>
+      <span class="min-w-[28px] min-h-[28px] group inline-flex items-center text-xs align-middle">
+        <span class="w-7 h-7 flex justify-center items-center flex-shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full group-focus:bg-gray-200 dark:bg-gray-700 dark:text-white dark:group-focus:bg-gray-600 hs-stepper-active:bg-blue-600 hs-stepper-active:text-white hs-stepper-success:bg-blue-600 hs-stepper-success:text-white hs-stepper-completed:bg-teal-500 hs-stepper-completed:group-focus:bg-teal-600">
+          <span class="hs-stepper-success:hidden hs-stepper-completed:hidden">{{ loop.index }}</span>
+          <svg class="hidden flex-shrink-0 h-3 w-3 hs-stepper-success:block" xmlns="http://www.w3.org/2000/svg"
+               width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+               stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </span>
+        <span class="ms-2 text-sm font-medium text-gray-800">
+          Step
+        </span>
+      </span>
+                    <div class="w-full h-px flex-1 bg-gray-200 group-last:hidden hs-stepper-success:bg-blue-600 hs-stepper-completed:bg-teal-600"></div>
+                </li>
+            {% endfor %}
+
+            <!-- End Item -->
+        </ul>
+
+        {{ form_start(form, {
+            id: 'stepperForm',
+        }) }}
+        {#        {% for question in form %} #}
+        {#            <div class="mt-5 sm:mt-8"> #}
+        {#                <div data-hs-stepper-content-item> #}
+        {#                    <div class="p-4 bg-gray-50 border border-dashed border-gray-200 rounded-xl"> #}
+        {#                        <h3 class="text-gray-500 mb-4">{{ question.vars.label }}</h3> #}
+        {#                        {{ form_widget(question) }} #}
+        {#                    </div> #}
+        {#                </div> #}
+        {#            </div> #}
+        {#        {% endfor %} #}
+        <!-- End Stepper Nav -->
+        {% for question in form %}
+            <!-- Stepper Content -->
+            <div class="mt-5 sm:mt-8">
+                <div data-hs-stepper-content-item='{"index": {{ loop.index }}{% if loop.last %}, "isFinal":true{% endif %}}'>
+                    <div class="p-4 bg-gray-50 border border-dashed border-gray-200 rounded-xl">
+                        <!-- Question Text -->
+                        <h3 class="text-xl text-gray-500 mb-4">{{ question.vars.label }}</h3>
+                        {#                        {{ form_widget(question) }} #}
+                        <!-- Radio Buttons List -->
+                        <div class="flex flex-col space-y-2">
+                            {% for q in question %}
+                                <div class="flex">
+                                    <input type="radio"
+                                           value="{{ q.vars.value }}"
+                                           name="{{ field_name(q) }}"
+                                           class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                           id="{{ field_name(q) }}_{{ loop.index }}"
+                                    >
+                                    <label for="{{ field_name(q) }}_{{ loop.index }}"
+                                           class="text-md text-gray-500 ms-2 dark:text-gray-400">
+                                        {{ field_label(q) }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+
+                            {#                            {% for content in contents %} #}
+                            {#                                <div class="flex items-center"> #}
+                            {#                                    <input type="radio" name="{{ question | replace({' ': '_'}) }}" #}
+                            {#                                           id="{{ question | replace({' ': '_'}) }}_{{ content | replace({' ': '_'}) }}" #}
+                            {#                                           class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"> #}
+                            {#                                    <label for="{{ question | replace({' ': '_'}) }}_{{ content | replace({' ': '_'}) }}" #}
+                            {#                                           class="ml-2 text-sm text-gray-500 dark:text-gray-400">{{ content }}</label> #}
+                            {#                                </div> #}
+                            {#                            {% endfor %} #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Stepper Content -->
+        {% endfor %}
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+        <!-- Final Contnet -->
+        {#            <div data-hs-stepper-content-item='{ #}
+        {#      "isFinal": true #}
+        {#    }' style="display: none;"> #}
+        {#                <div class="p-4 h-48 bg-gray-50 flex justify-center items-center border border-dashed border-gray-200 rounded-xl"> #}
+        {#                    <h3 class="text-gray-500"> #}
+        {#                        Final content #}
+        {#                    </h3> #}
+        {#                </div> #}
+        {#            </div> #}
+        <!-- End Final Contnet -->
+
+        <!-- Button Group -->
+        <div class="mt-5 flex justify-between items-center gap-x-2">
+            <button type="button"
+                    class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                    data-hs-stepper-back-btn>
+                <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6"/>
+                </svg>
+                Back
+            </button>
+            <button type="button"
+                    class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                    data-hs-stepper-next-btn>
+                Next
+                <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6"/>
+                </svg>
+            </button>
+            <button type="submit"
+                    form="stepperForm"
+                    class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                    data-hs-stepper-finish-btn style="display: none;">
+                Submit
+            </button>
+{#            <button type="reset"#}
+{#                    class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"#}
+{#                    data-hs-stepper-reset-btn style="display: none;">#}
+{#                Reset#}
+{#            </button>#}
+        </div>
+        <!-- End Button Group -->
+    </div>
+{% endblock %}

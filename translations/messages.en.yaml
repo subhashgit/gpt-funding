@@ -1,0 +1,46 @@
+list.label_email: Email
+list.label_username: Username
+list.label_account_type: Account Type
+list.label_notification_email: Notification Email
+list.label_last_logged_in: Last Logged In
+list.label_subscribed_at: Subscribed At
+list.label_created_at: Created At
+list.label_is_subscribed: Is Subscribed
+list.label__actions: Actions
+list.label_impersonating: Impersonating
+list.label_tariff: Tariff
+filter.label_id: ID
+filter.label_email: Email
+filter.label_username: Username
+filter.label_notification_email: Notification Email
+filter.label_account_type: Account Type
+show.group_users: Users
+show.label_id: ID
+show.label_email: Email
+show.label_username: Username
+show.label_account_type: Account Type
+show.label_notification_email: Notification Email
+show.label_roles: Roles
+show.label_password: Password
+show.label_is_verified: Is Verified
+show.label_subscribed_at: Subscribed
+show.label_last_logged_in: Last Logged
+show.label_points: Points
+show.label_user_filters: User Filters
+show.label_companies: Companies
+breadcrumb.link_user_list: List
+form.label_email: Email
+form.label_username: Username
+form.label_account_type: Account Type
+form.label_notification_email: Notification Email
+form.label_roles: Roles
+form.label_password: Password
+form.label_is_verified: Is Verified
+form.label_subscribed_at: Subscribed
+form.label_last_logged_in: Last Logged
+form.label_points: Points
+form.label_user_filters: User Filters
+form.label_companies: Companies
+form:
+  group_general: General
+  group_roles: Roles

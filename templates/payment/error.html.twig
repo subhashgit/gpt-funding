@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment Error{% endblock %}
+
+{% block body %}
+    <div class="flex items-center justify-center h-screen">
+        <div class="max-w-md w-full space-y-8">
+            <div class="flex flex-col items-center">
+                <!-- FontAwesome warning icon -->
+                <i class="fas fa-exclamation-triangle text-indigo-600 text-5xl"></i>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    Payment Failed!
+                </h2>
+                <p class="mt-2 text-center text-sm text-gray-600">
+                    We encountered an error while processing your transaction.
+                </p>
+            </div>
+            <div class="rounded-md bg-red-50 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <!-- FontAwesome warning icon -->
+                        <i class="fas fa-exclamation-triangle text-red-400"></i>
+                    </div>
+                    <div class="ml-3">
+
+{#                        <div class="mt-2 text-sm text-red-700">#}
+{#                            <p>#}
+{#                                Error: {{ payment.details.error.message }}#}
+{#                            </p>#}
+{#                        </div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

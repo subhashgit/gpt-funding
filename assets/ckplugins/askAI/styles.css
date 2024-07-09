@@ -1,0 +1,38 @@
+.cke_button__askai_label {
+    display: inline !important;
+    color: #000000;
+    font-weight: 600;
+}
+.cke_button__askai_icon {
+    display: none;
+}
+.cke_button__improvewriting_label {
+    display: inline !important;
+}
+.cke_button__improvewriting_icon {
+    display: none;
+}
+.cke_button__shortentext_label {
+    display: inline !important;
+}
+.cke_button__shortentext_icon {
+    display: none;
+}
+.cke_button__lengthentext_label {
+    display: inline !important;
+}
+.cke_button__lengthentext_icon {
+    display: none;
+}
+a.cke_button.cke_button__improvewriting.cke_button_off .cke_button_label.cke_button__improvewriting_label {
+    color: #000000;
+    font-weight: 600;
+}
+a.cke_button.cke_button__shortentext.cke_button_off .cke_button_label.cke_button__shortentext_label {
+    color: #000000;
+    font-weight: 600;
+}
+a.cke_button.cke_button__lengthentext.cke_button_off .cke_button_label.cke_button__lengthentext_label {
+    color: #000000;
+    font-weight: 600;
+}

@@ -1,0 +1,470 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {#    {% if not app.user.isSubscriptionActive and (views_exceeded() and not grant|viewed_today) %} #}
+    {#        {{ include('utils/points-exceeded.html.twig') }} #}
+    {#    {% else %} #}
+    <header>
+        <div class="mt-5 flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
+            <a class="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold text-blue-500 hover:text-blue-700 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm py-3 px-4 dark:ring-offset-slate-900"
+               href="{{ path('app_grant') }}">
+                <svg class="w-2.5 h-2.5" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M11.2792 1.64001L5.63273 7.28646C5.43747 7.48172 5.43747 7.79831 5.63273 7.99357L11.2792 13.64"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Back to list
+            </a>
+        </div>
+
+
+    </header>
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+
+        <!-- Title -->
+        <div class="max-w-4xl mx-auto text-center mb-10 lg:mb-14">
+            <h2 class="text-2xl font-bold md:text-3xl md:leading-tight text-gray-800 dark:text-gray-200">
+                {{ grant.title|title }}
+            </h2>
+        </div>
+        <!-- End Title -->
+
+        <div class="max-w-4xl mx-auto">
+            <!-- Grid -->
+            <div class="grid sm:grid-cols-2 gap-6 md:gap-12">
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        Funder
+                    </h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        {% if app.user.isSubscribed %}
+                            {{ grant.funder }}
+                        {% else %}
+                            Funder
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- End Col -->
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        Max Amount
+                    </h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        {% if app.user.isSubscribed %}
+                            {{ grant.maxAmount ? grant.maxAmount|format_currency('GBP', {
+                                fraction_digit: 0,
+                            }) : '-' }}
+                        {% else %}
+                            Max amount
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- End Col -->
+
+                {#                <div> #}
+                {#                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200"> #}
+                {#                        How To Apply #}
+                {#                    </h3> #}
+                {#                    <p class="mt-2 text-gray-600 dark:text-gray-400"> #}
+                {#                        <a class="text-blue-600 decoration-2 hover:underline font-medium" #}
+                {#                           href="{{ grant.howToApply }}">{{ grant.howToApply }}</a> #}
+                {#                    </p> #}
+                {#                </div> #}
+                <!-- End Col -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        Deadline
+                    </h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        {% if grant.closingDate %}
+                            {% if app.user.isSubscribed %}
+                                {{ grant.closingdate|format_date }}
+                            {% else %}
+                                Deadline
+                            {% endif %}
+                        {% else %}
+                            No deadline
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- End Col -->
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        Categories
+                    </h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        {% if app.user.isSubscribed %}
+                            {{ grant.categories|join(', ') }}
+                        {% else %}
+                            Categories
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- End Col -->
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        Location
+                    </h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        {% if app.user.isSubscribed %}
+                            {{ grant.locations|join(', ') }}
+                        {% else %}
+                            Location
+                        {% endif %}
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        Open To
+                    </h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+
+                        {% if app.user.isSubscribed %}
+                            {{ grant.openTo|join(', ') }}
+                        {% else %}
+                            Open to
+                        {% endif %}
+
+                    </p>
+                </div>
+                {#                <div> #}
+                {#                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200"> #}
+                {#                        Funding Details #}
+                {#                    </h3> #}
+                {#                    <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}"> #}
+                {#                        {% if app.user.isSubscribed %} #}
+                {#                            {{ grant.fundingDetails }} #}
+                {#                        {% else %} #}
+                {#                            Funding details #}
+                {#                        {% endif %} #}
+                {#                    </p> #}
+                {#                </div> #}
+
+                {#                <div> #}
+                {#                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200"> #}
+                {#                        Who Can Apply #}
+                {#                    </h3> #}
+                {#                    <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}"> #}
+                {#                        {% if app.user.isSubscribed %} #}
+                {#                            {{ grant.whoCanApply }} #}
+                {#                        {% else %} #}
+                {#                            Who can apply #}
+                {#                        {% endif %} #}
+                {#                    </p> #}
+                {#                </div> #}
+
+
+                <!-- End Col -->
+
+            </div>
+            <!-- End Grid -->
+        </div>
+
+        <!-- Blog Article -->
+        <div class="max-w-4xl mx-auto">
+            <div class="max-w-4xl">
+                <br>
+                <div class="space-y-5 md:space-y-8 relative">
+                    <div class="space-y-3">
+                        <h3 class="text-2xl font-semibold dark:text-white">About the Fund</h3>
+                    </div>
+
+                    <div class="relative">
+                        <p class="text-lg text-gray-800 dark:text-gray-200 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {% if app.user.isSubscribed %}
+                                {{ grant.description|replace(
+                                    {
+                                        '<ul>': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                        '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 text-lg">': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                        '<p>': '<p class="text-lg text-gray-800 dark:text-gray-200">',
+                                        '</p>': '</p><br>',
+                                        '</ul>': '</ul><br>',
+                                    }
+                                )|raw }}
+                            {% else %}
+                                {% set sentances = grant.description|split('.')|length %}
+                                {{ lorem_ipsum(sentances)|join(' ') }}
+                            {% endif %}
+                        </p>
+                        {% if not app.user.isSubscribed %}
+                            <button
+                                    data-hs-overlay="#hs-basic-modal"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                Upgrade your account
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+                <div class="space-y-5 md:space-y-8 relative">
+                    <div class="space-y-3">
+                        <h3 class="text-2xl font-semibold dark:text-white">Eligibility</h3>
+                    </div>
+
+                    <div class="relative {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        {% if app.user.isSubscribed %}
+                            {{ grant.whoCanApply|replace(
+                                {
+                                    '<ul>': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                    '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 text-lg">': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                    '<p>': '<p class="text-lg text-gray-800 dark:text-gray-200">',
+                                    '</p>': '</p><br>',
+                                    '</ul>': '</ul><br>',
+                                }
+                            )|raw }}
+                        {% else %}
+                            {% set sentances = grant.whoCanApply|split('.')|length %}
+                            {{ lorem_ipsum(sentances)|join(' ') }}
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+                <div class="space-y-5 md:space-y-8 relative">
+                    <div class="space-y-3">
+                        <h3 class="text-2xl font-semibold dark:text-white">Funding Details</h3>
+                    </div>
+
+                    <div class="relative">
+                        <p class="text-lg text-gray-800 dark:text-gray-200 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {% if app.user.isSubscribed %}
+                                <i class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5"></i>
+                                <i class="text-lg text-gray-800 dark:text-gray-200"></i>
+                                {{ grant.fundingDetails|replace(
+                                    {
+                                        '<ul>': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                        '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 text-lg">': '<ul class="list-disc list-inside text-gray-900 dark:text-gray-200 px-5 text-lg">',
+                                        '<p>': '<p class="text-lg text-gray-800 dark:text-gray-200">',
+                                        '</p>': '</p><br>',
+                                        '</ul>': '</ul><br>',
+                                    }
+                                )|raw }}
+                            {% else %}
+                                {% set sentances = grant.fundingDetails|split('.')|length %}
+                                {{ lorem_ipsum(sentances)|join(' ') }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <!-- Content -->
+                <div class="space-y-5 md:space-y-8">
+                    <div class="space-y-3">
+                        <h3 class="text-2xl font-semibold dark:text-white">Find Out More</h3>
+                    </div>
+
+                    <p class="text-lg text-gray-800 dark:text-gray-200 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+
+                        {% if app.user.isSubscribed %}
+
+                            {% set urls = grant.findOutMore|split(',') %}
+
+                            {% for url in urls %}
+                                <a href="{{ url|trim|add_https }}" target="_blank">
+                                    {{ url|trim|add_https }}
+                                </a>
+                            {% endfor %}
+                        {% else %}
+                            {{ lorem_ipsum(1)|join(' ') }}
+                        {% endif %}
+                    </p>
+                </div>
+                {% if similarGrants and app.user.points > 0 %}
+                    <!-- Similar Projects -->
+                    <div class="max-w-4xl mx-auto mt-10">
+                        <div class="space-y-3">
+                            <h3 class="text-2xl font-semibold dark:text-white">
+                                Similar Projects
+                            </h3>
+                        </div>
+                        <br>
+                        <div class="flex gap-6">
+                            <div class="grid grid-cols-3 gap-4">
+                                {% for project in similarGrants %}
+                                    <div class="flex flex-col justify-between w-64 border rounded-md p-4 bg-white shadow-sm hover:bg-gray-100 h-full">
+                                        <div>
+                                            <h4 class="text-lg font-semibold dark:text-gray-800 mb-2">{{ project.title|title }}</h4>
+                                            <p class="text-gray-600 dark:text-gray-400 mb-2">
+                                                {{ project.description|striptags|u.truncate(200, '...')|raw }}
+                                            </p>
+                                        </div>
+                                        <a href="{{ path('app_grant_view', {
+                                            'slug': project.slug
+                                        }) }}" class="text-blue-500 hover:underline mt-2 block self-end">
+                                            Read more
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <br>
+
+                <!-- Content -->
+
+                {#                    {% if app.user.points > 0 %} #}
+                  <form action="{{ path('app_grant_suggestion_generate', {
+                                            'slug': grant.slug
+                                        }) }}" id="grant_suggestion_generate-form" method="post">
+                                        </form>
+                                        <button type="submit"
+                                                {% if not app.user.companies.first %} disabled {% endif %}
+                                                form="grant_suggestion_generate-form"
+                                                class="inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-lg py-3 px-6 shadow-lg mt-6">
+                                           Suggest a Project
+                                        </button> 
+                {#                        <p class="text-xs mt-2 text-gray-600">Clicking on this button will consume 1 credit</p> #}
+
+                {#                        <button type="button" #}
+                {#                                data-hs-overlay="#hs-notifications" #}
+                {#                                class="inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-lg py-3 px-6 shadow-lg mt-6"> #}
+                {#                            Send to Bid Writer #}
+                {#                        </button> #}
+                {#                        <p class="text-xs mt-2 text-gray-600">Clicking on this button will consume 1 credit</p> #}
+
+                {#                    {% else %} #}
+                {#                        <button type="button" #}
+                {#                                {% if not app.user.companies.first %} disabled {% endif %} #}
+                {#                                data-hs-overlay="#hs-basic-modal" #}
+                {#                                class="inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-lg py-3 px-6 shadow-lg mt-6"> #}
+                {#                            Suggest a Project #}
+                {#                        </button> #}
+                {#                        <p class="text-xs mt-2 text-gray-600">Clicking on this button will consume 1 credit</p> #}
+
+                {#                        <button type="button" #}
+                {#                                class="inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-lg py-3 px-6 shadow-lg mt-6" #}
+                {#                                data-hs-overlay="#hs-basic-modal"> #}
+                {#                            Send to Bid Writer #}
+                {#                        </button> #}
+                {#                        <p class="text-xs mt-2 text-gray-600">Clicking on this button will consume 1 credit</p> #}
+
+                {#                    {% endif %} #}
+                {% if app.user.subscriptionActive and app.user.userTariffs.last.tariff.title == 'Premium' %}
+                  {#  <form action="{{ path('app_grant_suggestion_generate', {
+                        'slug': grant.slug
+                    }) }}" id="grant_suggestion_generate-form" method="post">
+                    </form>
+                    <button type="submit"
+                            {% if not app.user.companies.first %} disabled {% endif %}
+                            form="grant_suggestion_generate-form"
+                            class="inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-lg py-3 px-6 shadow-lg mt-6">
+                        Suggest a Project
+                    </button> #}
+{#                    <p class="text-xs mt-2 text-gray-600">Clicking on this button will consume 1 credit</p>#}
+
+                    {#                        <button type="button" #}
+                    {#                                data-hs-overlay="#hs-notifications" #}
+                    {#                                class="inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-lg py-3 px-6 shadow-lg mt-6"> #}
+                    {#                            Send to Bid Writer #}
+                    {#                        </button> #}
+                    {#                        <p class="text-xs mt-2 text-gray-600">Clicking on this button will consume 1 credit</p> #}
+
+                {% else %}
+                {% endif %}
+                <div class="container mt-5 flex flex-row gap-3">
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        {#                                <a class="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold text-blue-500 hover:text-blue-700 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm py-3 px-4 dark:ring-offset-slate-900" #}
+                        {#                                   href="{{ path('app_grant') }}"> #}
+                        {#                                    <svg class="w-2.5 h-2.5" width="16" height="16" viewBox="0 0 16 16" fill="none"> #}
+                        {#                                        <path d="M11.2792 1.64001L5.63273 7.28646C5.43747 7.48172 5.43747 7.79831 5.63273 7.99357L11.2792 13.64" #}
+                        {#                                              stroke="currentColor" stroke-width="2" stroke-linecap="round"/> #}
+                        {#                                    </svg> #}
+                        {#                                    Back to list #}
+                        {#                                </a> #}
+                    </div>
+
+
+                    <div class="flex flex-col items-center gap-2">
+                        <button class="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-md border border-blue-500 bg-blue-500 hover:bg-blue-700 text-white font-semibold focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm py-3 px-4 dark:ring-offset-slate-900"
+                                data-hs-overlay="#hs-focus-management-modal"
+                        >
+                             Add to pipeline
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Blog Article -->
+    </div>
+
+    {{ include('modals/no-points.html.twig', {
+        message: 'You do need to be subscribed to make this action. Please upgrade your account.'
+    }) }}
+
+    {{ include('modals/bid.html.twig', {
+        form: form
+    }) }}
+
+    <div id="hs-focus-management-modal"
+         class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+        <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+            <div class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+                <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
+                    <h3 class="font-bold text-gray-800 dark:text-white">
+                        Bid Writing support
+                    </h3>
+                    <button type="button"
+                            class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                            data-hs-overlay="#hs-focus-management-modal">
+                        <span class="sr-only">Close</span>
+                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 6 6 18"/>
+                            <path d="m6 6 12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                {{ form_start(formRequest) }}
+                <div class="p-4 overflow-y-auto">
+                    <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Project Overview</label>
+                    {{ form_widget(formRequest.projectOverview) }}
+                </div>
+                <div class="p-4 overflow-y-auto">
+                    <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Budget Breakdown</label>
+                    {{ form_widget(formRequest.budgetBreakdown) }}
+                </div>
+        
+  
+                
+                
+
+                {#                <div class="p-4 overflow-y-auto"> #}
+                {#                    <label for="input-label" class="block text-sm font-medium mb-2 dark:text-white">Email</label> #}
+                {#                    <textarea type="email" id="input-label" #}
+                {#                              class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                {#                              placeholder="you@site.com" autofocus> #}
+                {#                    </textarea> #}
+                {#                </div> #}
+                {{ form_end(formRequest) }}
+                <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+                    <button type="button"
+                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                            data-hs-overlay="#hs-focus-management-modal">
+                        Close
+                    </button>
+                    <input type="submit"
+                           form="grant_suggestion_form"
+                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" value="Add">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#    {% endif %} #}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+    {#    {% if not views_exceeded_this_month() %} #}
+    {#        {{ include('utils/subscribe-banner.html.twig') }} #}
+    {#    {% endif %} #}
+{% endblock %}
+
+{% block title %}
+    {{ grant.title|title }}
+{% endblock %}
+

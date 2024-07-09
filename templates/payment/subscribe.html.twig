@@ -1,0 +1,314 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Pricing -->
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <!-- Title -->
+        <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Pricing</h2>
+
+        </div>
+        <!-- End Title -->
+
+        <!-- Switch -->
+        <div class="flex justify-center items-center" id="toggle-count">
+            <label class="min-w-[3.5rem] text-sm text-gray-500 me-3 dark:text-gray-400">Monthly</label>
+
+            <input
+                    type="checkbox"
+                    id="toggle-count-monthly"
+                    class="relative w-[3.25rem] h-7 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-600 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-blue-600 checked:border-blue-600 focus:checked:border-blue-600 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-600 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-white"
+                    checked>
+
+            <label class="relative min-w-[3.5rem] text-sm text-gray-500 ms-3 dark:text-gray-400">
+                Annual
+                <span class="absolute -top-10 start-auto -end-28"></span>
+            </label>
+
+        </div>
+        <!-- End Switch -->
+
+        <!-- Grid -->
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:items-center">
+            <!-- Card -->
+{#            <div class="flex flex-col border border-gray-200 text-center rounded-xl p-8 dark:border-gray-700">#}
+{#                <h4 class="font-medium text-lg text-green-600 dark:text-green-200">#}
+{#                    <strong>#}
+{#                        Basic#}
+{#                    </strong>#}
+{#                </h4>#}
+{#                <span class="mt-7 font-bold text-5xl text-green-600 dark:text-green-200">Free</span>#}
+{#                <p class="mt-2 text-sm text-gray-500">Forever free</p>#}
+
+{#                <ul class="mt-7 space-y-2.5 text-sm">#}
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-800 dark:text-gray-400">#}
+{#            <i class="fa-solid fa-check text-green-600 dark:text-green-500"></i>&nbsp;Limited Database Access#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-800 dark:text-gray-400">#}
+{#                        <i class="fa-solid fa-check text-green-600 dark:text-green-500"></i>&nbsp;Daily Alerts#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-800 dark:text-gray-400">#}
+{#                        <i class="fa-solid fa-check text-green-600 dark:text-green-500"></i>&nbsp;Bid Writing Support#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+
+{#                        <span class="text-gray-400 dark:text-gray-200">#}
+{#                            <i class="fa-solid fa-xmark text-red-600 dark:text-red-500"></i>&nbsp;AI Powered Search#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-400 dark:text-gray-200">#}
+{#                            <i class="fa-solid fa-xmark text-red-600 dark:text-red-500"></i>&nbsp;AI Project Creator#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-400 dark:text-gray-200">#}
+{#                            <i class="fa-solid fa-xmark text-red-600 dark:text-red-500"></i>&nbsp;Bid Writer AI#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                </ul>#}
+{#                {% if app.user.userTariffs.count == 0 or app.user.userTariffs.last.dateEnd <= date() %}#}
+
+{#                    <a class="mt-5 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-100 text-blue-800 hover:bg-green-200 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-blue-900 dark:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"#}
+{#                       href="#">#}
+{#                        Current plan#}
+{#                    </a>#}
+{#                {% else %}#}
+{#                    <a class="mt-5 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"#}
+{#                       href="{{ path('app_payment_cancel') }}">#}
+{#                        Cancel subscription#}
+{#                    </a>#}
+{#                {% endif %}#}
+{#            </div>#}
+            <!-- End Card -->
+
+            {% for tariff in tariffs %}
+                <!-- Card -->
+                {#                <div class="flex flex-col border-2 border-blue-600 text-center shadow-xl rounded-xl p-8 dark:border-blue-700"> #}
+                <div class="flex flex-col border border-gray-200 text-center rounded-xl p-8 dark:border-gray-700">
+                    {#                    <p class="mb-3"> #}
+                    {#                        <span #}
+                    {#                                class="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-lg text-xs uppercase font-semibold bg-blue-100 text-blue-800 dark:bg-blue-600 dark:text-white"> #}
+                    {#                            Most popular #}
+                    {#                        </span> #}
+                    {#                    </p> #}
+
+                    {% set color = tariff.product.name == 'Starter'?'cyan':'amber' %}
+                    <i class="text-cyan-600 bg-cyan-600 text-amber-600 bg-amber-600 hover:bg-cyan-700 hover:bg-amber-700 text-cyan-800 text-amber-800 text-cyan-200 text-amber-200"></i>
+
+                    <h4 class="font-medium text-lg text-{{ color }}-600 dark:text-{{ color }}-200">
+                        <strong>
+                            {{ tariff.product.name }}
+                        </strong>
+                    </h4>
+                    <span class="mt-5 font-bold text-5xl text-{{ color }}-800 dark:text-{{ color }}-200">
+        <span class="font-bold text-2xl -me-2">£</span>
+           <a data-hs-toggle-count='{
+          "target": "#toggle-count",
+          "min": {{ tariff.price[1].unit_amount/100 }},
+          "max": {{ tariff.price[0].unit_amount/100 }}
+        }' class="">
+        {{ tariff.price[1].unit_amount/100 }}
+      </a>
+      </span>
+                    <p class="mt-2 text-sm text-color-500">&nbsp;</p>
+
+                    {% if tariff.product.name == 'Starter' or tariff.product.name == 'Growth' %}
+                        <ul class="mt-7 space-y-2.5 text-sm">
+                            <li class="flex space-x-2">
+                        <span class="text-gray-800 dark:text-gray-400">
+            <i class="fa-solid fa-check text-cyan-600 dark:text-cyan-500"></i>&nbsp;Full Database Access
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+                        <span class="text-gray-800 dark:text-gray-400">
+                        <i class="fa-solid fa-check text-cyan-600 dark:text-cyan-500"></i>&nbsp;Daily Alerts
+          </span>
+                            </li>
+
+
+                            <li class="flex space-x-2">
+                        <span class="text-gray-800 dark:text-gray-400">
+                        <i class="fa-solid fa-check text-cyan-600 dark:text-cyan-500"></i>&nbsp;Bid Writing Support
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+
+                        <span class="text-gray-800 dark:text-gray-400">
+                            <i class="fa-solid fa-check text-cyan-600 dark:text-cyan-500"></i>&nbsp;AI Powered Search
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+                        <span class="text-gray-400 dark:text-gray-200">
+                            <i class="fa-solid fa-xmark text-red-600 dark:text-red-500"></i>&nbsp;AI Project Creator
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+                        <span class="text-gray-400 dark:text-gray-200">
+                            <i class="fa-solid fa-xmark text-red-600 dark:text-red-500"></i>&nbsp;Bid Writer AI
+          </span>
+                            </li>
+
+                        </ul>
+                    {% elseif tariff.product.name == 'Premium' or tariff.product.name == 'Scale' %}
+                        <ul class="mt-7 space-y-2.5 text-sm">
+                            <li class="flex space-x-2">
+                        <span class="text-gray-800 dark:text-gray-400">
+            <i class="fa-solid fa-check text-amber-600 dark:text-amber-500"></i>&nbsp;Full Database Access
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+                        <span class="text-gray-800 dark:text-gray-400">
+                        <i class="fa-solid fa-check text-amber-600 dark:text-amber-500"></i>&nbsp;Daily Alerts
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+                        <span class="text-gray-800 dark:text-gray-400">
+                            <i class="fa-solid fa-check text-amber-600 dark:text-amber-500"></i>&nbsp;Bid Writing Support
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+
+                        <span class="text-gray-800 dark:text-gray-400">
+                            <i class="fa-solid fa-check text-amber-600 dark:text-amber-500"></i>&nbsp;AI Powered Search
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+                        <span class="text-gray-800 dark:text-gray-400">
+                            <i class="fa-solid fa-check text-amber-600 dark:text-amber-500"></i>&nbsp;AI Project Creator
+          </span>
+                            </li>
+
+                            <li class="flex space-x-2">
+                        <span class="text-gray-800 dark:text-gray-400">
+                            <i class="fa-solid fa-check text-amber-600 dark:text-amber-500"></i>&nbsp;Bid Writer AI
+          </span>
+                            </li>
+                        </ul>
+                    {% endif %}
+                    {% if app.user.userTariffs.count == 0 or app.user.userTariffs.last.dateEnd <= date() %}
+                        <a class="signbtn mt-5 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-{{ color }}-600 text-white hover:bg-{{ color }}-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                           href="{{ path('app_payment_subscribe_price', { priceId: tariff.price[1].id }) }}">
+                            Start Free Trial
+                        </a>
+                        <a class="signbtn hidden mt-5 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-{{ color }}-600 text-white hover:bg-{{ color }}-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                           href="{{ path('app_payment_subscribe_price', { priceId: tariff.price[0].id }) }}">
+                            Start Free Trial
+                        </a>
+                    {% else %}
+
+                        <a class="mt-5 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-{{ color }}-600 text-white hover:bg-{{ color }}-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                           href="{{ path('app_payment_cancel') }}">
+                            Cancel subscription
+                        </a>
+                    {% endif %}
+                </div>
+                <!-- End Card -->
+            {% endfor %}
+
+{#            <div class="flex flex-col border border-gray-200 text-center rounded-xl p-8 dark:border-gray-700">#}
+
+{#                <h4 class="font-medium text-lg text-blue-600 dark:text-blue-200">#}
+{#                    <strong>#}
+{#                        Support#}
+{#                    </strong>#}
+{#                </h4>#}
+{#                <span class="mt-5 font-bold text-5xl text-blue-800 dark:text-blue-200">#}
+{#        <span class="font-bold text-2xl -me-2"></span>#}
+{#           <a data-hs-toggle-count='{#}
+{#          "target": "#toggle-count",#}
+{#          "min": 10%,#}
+{#          "max": 10%#}
+{#        }' class="">#}
+{#        10%#}
+{#      </a>#}
+{#                            <span class="font-bold text-xl -me-2">success fee</span>#}
+{#      </span>#}
+{#                <p class="mt-2 text-sm text-color-500">&nbsp;</p>#}
+
+{#                <ul class="mt-7 space-y-2.5 text-sm">#}
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-800 dark:text-gray-400">#}
+{#            <i class="fa-solid fa-check text-blue-600 dark:text-blue-500"></i>&nbsp;Outsource your bid writing#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-800 dark:text-gray-400">#}
+{#                        <i class="fa-solid fa-check text-blue-600 dark:text-blue-500"></i>&nbsp;Dedicated Bid Writer#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+
+{#                        <span class="text-gray-800 dark:text-gray-400">#}
+{#                            <i class="fa-solid fa-check text-blue-600 dark:text-blue-500"></i>&nbsp;Grant Research#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-800 dark:text-gray-400">#}
+{#                            <i class="fa-solid fa-check text-blue-600 dark:text-blue-500"></i>&nbsp;Bid writing#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-800 dark:text-gray-400">#}
+{#                            <i class="fa-solid fa-check text-blue-600 dark:text-blue-500"></i>&nbsp;Monitoring and evaluation#}
+{#          </span>#}
+{#                    </li>#}
+
+{#                    <li class="flex space-x-2">#}
+{#                        <span class="text-gray-800 dark:text-gray-400">&nbsp;</span>#}
+{#                    </li>#}
+
+{#                </ul>#}
+{#                <a class=" mt-5 py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"#}
+{#                   href="https://calendly.com/fundin/bid-writing-support">#}
+{#                    Book a Call#}
+{#                </a>#}
+
+
+{#            </div>#}
+
+        </div>
+        <!-- End Grid -->
+
+    </div>
+
+    <script>
+        const toggleCountMonthly = document.querySelector('#toggle-count-monthly')
+
+        toggleCountMonthly.addEventListener('change', () => {
+            document.querySelectorAll('.signbtn').forEach(toggleCount => {
+                toggleCount.classList.toggle('hidden')
+            })
+        })
+    </script>
+    <!-- End Pricing -->
+{% endblock %}
+
+{% block title %}
+    Subscription
+{% endblock %}
+

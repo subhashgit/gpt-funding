@@ -1,0 +1,10 @@
+<select
+        data-model="order"
+        class="py-2 px-3 pr-9 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+>
+    <option disabled>Sort results</option>
+    <option value="published_date:desc" {% if this.order is same as('published_date:desc') %}selected{% endif %}>Latest Published Date</option>
+    <option value="published_date:asc" {% if this.order is same as('published_date:asc') %}selected{% endif %}>Earliest Published Date</option>
+    <option value="closing_date:desc" {% if this.order is same as('closing_date:desc') %}selected{% endif %}>Latest Closing Date</option>
+    <option value="closing_date:asc" {% if this.order is same as('closing_date:asc') %}selected{% endif %}>Earliest Closing Date</option>
+</select>

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tenders List{% endblock %}
+
+{% block body %}
+    {{ component('FundingSearch') }}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{#    {{ include('utils/subscribe-banner.html.twig') }}#}
+{% endblock %}

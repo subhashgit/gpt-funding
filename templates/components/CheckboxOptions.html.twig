@@ -1,0 +1,23 @@
+<div {{ attributes }} class="grid grid-cols-3 gap-4">
+    {% for value in options %}
+        <div>
+            <div class="flex">
+                <input type="checkbox"
+                       data-action="live#action"
+                       data-live-action-param="check"
+                       data-live-name-param="{{ value|url_encode }}"
+                       data-live-property-name-param="{{ name }}"
+                       class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                       id="hs-default-checkbox-{{ name }}-{{ loop.index }}"
+                        {% for filter in selectedFilters[name] %}
+                            {% if value is same as(filter) %}checked{% endif %}
+                        {% endfor %}
+                >
+                <label for="hs-default-checkbox-{{ name }}-{{ loop.index }}"
+                       class="text-sm text-gray-500 ml-3 dark:text-gray-400">
+                    {{ value }}
+                </label>
+            </div>
+        </div>
+    {% endfor %}
+</div>

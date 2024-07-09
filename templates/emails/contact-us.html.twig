@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Articles Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .email-content {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .category {
+            font-size: 24px;
+            font-weight: bold;
+            color: #444;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .article {
+            margin: 20px 0;
+        }
+
+        .article-title {
+            font-size: 18px;
+        }
+
+        .article-title a {
+            text-decoration: none;
+            color: #337ab7;
+        }
+
+        .article-title a:hover {
+            text-decoration: underline;
+        }
+
+        .article-description {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <h1>New contact request</h1>
+    <div class="email-content">
+        <p>
+            <strong>Name:</strong> {{ data.first_name }} {{ data.last_name }}<br>
+            <strong>Email:</strong> {{ data.email }} <br>
+            <strong>Message:</strong> {{ data.message }}
+        </p>
+    </div>
+</div>
+</body>
+</html>

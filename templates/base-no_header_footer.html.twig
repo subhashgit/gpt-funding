@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" class="{% block htmlClass %}h-full{% endblock %}">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
+    <!-- Favicon -->
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body class="{% block bodyClass %}{% endblock %}">
+
+    <!-- Content -->
+    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
+        <!-- Page Heading -->
+        <!-- End Page Heading -->
+        {% block body %}{% endblock %}
+    </div>
+
+    <!-- End Content -->
+    <!-- ========== MAIN CONTENT ========== -->
+
+    <!-- ========== END MAIN CONTENT ========== -->
+</body>
+</html>

@@ -1,0 +1,29 @@
+ssh -i "id_rsa" root@143.198.242.241
+cd /var/www/gpt-funding/releases/146
+php bin/console cache:clear --env=prod
+
+https://app.fundin.uk/admin/dashboard
+tomleeming1992@gmail.com
+Verity1991!
+
+ 1450  php bin/console make:migration
+ 1451  php bin/console doctrine:migrations:migrate
+ 1452  php bin/console doctrine:make:migration
+ 1453  php bin/console doctrine:database
+ 1454  php bin/console doctrine:make:migration
+ 1455  php bin/console make:migration
+
+ https://docs.google.com/document/d/1n7LC3s1ZW6WILXt60KiqQ3zRKwCMOmyb_f95juR_wbA/edit
+
+
+
+
+1434  rm -r cache
+ 1435  wget
+ 1436  cd ..
+ 1437  cd public
+ 1438  wget https://www.adminer.org/latest.php -O /var/www/gpt-funding/releases/146/public/adminer/index.php
+
+
+composer require symfony/debug
+ 1587  composer require symfony/debug

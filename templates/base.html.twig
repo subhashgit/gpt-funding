@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" class="{% block htmlClass %}h-full{% endblock %}">
+<head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>{% block title %}{% endblock %}</title>
+    <script>
+        window.CKEDITOR_BASEPATH = '/build/ckeditor4/';
+    </script>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
+    <!-- Favicon -->
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body class="{% block bodyClass %}{% endblock %}"
+      {% if app.user.brief or app.user.subscriptionActive %}data-controller="tour"{% endif %}>
+<div class="flex flex-col h-screen justify-between">
+
+    {% block header %}
+        <header class="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:pl-64 dark:bg-gray-800 dark:border-gray-700">
+            <nav class="flex basis-full items-center w-full mx-auto px-4 sm:px-6 md:px-8" aria-label="Global">
+                <div class="mr-5 lg:mr-0 lg:hidden">
+                    <a class="flex-none text-xl font-semibold dark:text-white" href="{{ path('app_home') }}"
+                       aria-label="Brand">
+                        <img src="{{ asset('build/img/Fundin2.png') }}" alt="Logo" class="h-8 w-auto sm:h-10">
+                    </a>
+                </div>
+
+                <div class="w-full flex items-center justify-end ml-auto sm:justify-between sm:gap-x-3 sm:order-3">
+                    <div>
+                        <button onclick="localStorage.removeItem('driverjs-completed');localStorage.removeItem('driverjs-current-step'); window.location.href='/'">
+                            Help?
+                        </button>
+                    </div>
+                    <div class="sm:hidden">
+                        <button type="button"
+                                class="inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
+                            <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                 fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    {% block search %}
+                        <div class="hidden sm:block">
+
+                        </div>
+                    {% endblock %}
+                    <div class="flex flex-row items-center justify-end gap-2">
+                        <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
+                            <button id="hs-dropdown-with-header" type="button"
+                                    class="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium bg-white text-gray-700 align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
+                                <img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-white dark:ring-gray-800"
+                                     src="{{ avatar(app.user.email, 64, '') }}"
+                                     alt="Image Description">
+                            </button>
+
+                            <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-[15rem] bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700"
+                                 aria-labelledby="hs-dropdown-with-header">
+                                <div class="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg dark:bg-gray-700">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Signed in as</p>
+                                    <p class="text-sm font-medium text-gray-800 dark:text-gray-300">{{ app.user.email }}</p>
+                                </div>
+
+                                <div class="mt-2 py-2 first:pt-0 last:pb-0">
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                       href="{{ path('app_profile') }}">
+                                        <i class="fa-solid fa-user"></i>
+                                        Profile
+                                    </a>
+                                </div>
+
+                                <div class="mt-2 py-2 first:pt-0 last:pb-0">
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                       href="https://billing.stripe.com/p/login/6oE3cH0fE6yd21aeUU">
+                                        <i class="fas fa-credit-card"></i>
+                                        Billing and Invoices
+                                    </a>
+                                </div>
+                                {#                                <div class="mt-2 py-2 first:pt-0 last:pb-0"> #}
+                                {#                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" #}
+                                {#                                       href="{{ path('app_company') }}"> #}
+                                {#                                        <i class="fa-regular fa-building"></i>&nbsp;Description #}
+                                {#                                    </a> #}
+                                {#                                </div> #}
+
+                                <div class="mt-2 py-2 first:pt-0 last:pb-0">
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                       href="{{ path('app_profile_alerts') }}"
+                                       target="_blank">
+                                        <i class="fa-solid fa-envelope"></i>Alerts
+                                    </a>
+                                </div>
+
+                                <div class="mt-2 py-2 first:pt-0 last:pb-0">
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                       href="https://fundin.uk/support-centre/"
+                                       target="_blank">
+                                        <i class="fa-solid fa-info"></i>&nbsp;Support Centre
+                                    </a>
+                                </div>
+                                {% if is_granted('IS_IMPERSONATOR') %}
+                                    <div class="mt-2 py-2 first:pt-0 last:pb-0">
+                                        <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                           href="{{ impersonation_exit_path(path('admin_app_user_list') ) }}">
+                                            Exit impersonation
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                <div class="mt-2 py-2 first:pt-0 last:pb-0">
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                       href="{{ path('app_logout') }}">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex items-center py-4">
+                <!-- Navigation Toggle -->
+                <button type="button" class="text-gray-500 hover:text-gray-600" data-hs-overlay="#application-sidebar"
+                        aria-controls="application-sidebar" aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <svg class="w-5 h-5" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+                <!-- End Navigation Toggle -->
+
+                <!-- Breadcrumb -->
+                <ol class="ml-3 flex items-center whitespace-nowrap min-w-0" aria-label="Breadcrumb">
+                    <li class="flex items-center text-sm text-gray-800 dark:text-gray-400">
+                        Application
+                        <svg class="flex-shrink-0 mx-3 overflow-visible h-2.5 w-2.5 text-gray-400 dark:text-gray-600"
+                             width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
+                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </li>
+                    <li class="text-sm font-semibold text-gray-800 truncate dark:text-gray-400" aria-current="page">
+                        {{ block('title') }}
+                    </li>
+                </ol>
+                <!-- End Breadcrumb -->
+            </div>
+        </div>
+        <!-- End Sidebar Toggle -->
+
+        <!-- Sidebar -->
+        <div id="application-sidebar"
+             class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 left-0 bottom-0 z-[60] w-64 bg-white border-r border-gray-200 pt-7 pb-10 overflow-y-auto scrollbar-y lg:block lg:translate-x-0 lg:right-auto lg:bottom-0 dark:scrollbar-y dark:bg-gray-800 dark:border-gray-700">
+            <div class="px-6">
+                <a class="flex-none text-xl font-semibold dark:text-white" href="{{ path('app_home') }}"
+                   aria-label="Brand">
+                    <img src="{{ asset('build/img/Fundin2.png') }}" alt="Logo">
+                </a>
+            </div>
+
+
+            <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
+                <ul class="space-y-1.5">
+                    {#                    <li> #}
+                    {#                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300" #}
+                    {#                           href="{{ path('app_home') }}"> #}
+                    {#                            <i class="fa-solid fa-house"></i>Dashboard #}
+                    {#                        </a> #}
+                    {#                    </li> #}
+                    <li>
+                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300"
+                           href="/">
+                           <i class="fa-solid fa-briefcase"></i>
+                            &nbsp;Notifications
+                        </a>
+                    </li>
+                    <li>
+                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300"
+                           href="{{ path('app_company') }}">
+                            <i class="fa-regular fa-building"></i>&nbsp;About us
+                        </a>
+                    </li>
+                    {# <li>
+                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300"
+                           href="{{ path('app_project') }}">
+                            <i class="fa-solid fa-umbrella"></i>Project Funding
+                        </a>
+                    </li> #}
+                    <li>
+                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300"
+                           href="{{ path('app_funding') }}">
+                            <i class="fa-solid fa-landmark"></i>Tenders
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300"
+                           href="{{ path('app_grant') }}">
+                            <i class="fa-solid fa-sterling-sign"></i>&nbsp; Grants
+                        </a>
+                    </li>
+
+                    {% if is_granted('ROLE_BID_WRITER') or is_granted('IS_IMPERSONATOR') %}
+                        <li>
+                            <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300"
+                               href="{{ path('app_bid-writer') }}">
+                                <i class="fa-solid fa-pencil"></i>
+                                Bid Writer
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300"
+                           href="{{ path('app_grant_suggestion') }}">
+                            <i class="fa-regular fa-lightbulb"></i>&nbsp;My projects
+                        </a>
+                    </li>
+                    <li>
+                        <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300"
+                           href="{{ path('app_grant_request') }}">
+                            <i class="fa-solid fa-bell"></i>&nbsp;Pipeline
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+        <!-- End Sidebar -->
+    {% endblock %}
+    <!-- Content -->
+    <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:pl-72">
+        <!-- Page Heading -->
+        {#                <header> #}
+        {#                    <p class="mb-2 text-sm font-semibold text-blue-600">Starter Pages & Examples</p> #}
+        {#                    <h1 class="block text-2xl font-bold text-gray-800 sm:text-3xl dark:text-white">Application Layout: Sidebar & Header using Tailwind CSS</h1> #}
+        {#                    <p class="mt-2 text-lg text-gray-800 dark:text-gray-400">This is a simple application layout with sidebar and header examples using Tailwind CSS.</p> #}
+        {#                    <div class="mt-5 flex flex-col items-center gap-2 sm:flex-row sm:gap-3"> #}
+        {#                        <a class="w-full sm:w-auto inline-flex justify-center items-center gap-x-3 text-center bg-blue-600 hover:bg-blue-700 border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4 dark:focus:ring-offset-gray-800" href="https://github.com/htmlstreamofficial/preline/tree/main/examples/html" target="_blank"> #}
+        {#                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> #}
+        {#                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/> #}
+        {#                            </svg> #}
+        {#                            Get the source code #}
+        {#                        </a> #}
+        {#                        <a class="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold text-blue-500 hover:text-blue-700 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm py-3 px-4 dark:ring-offset-slate-900" href="../examples.html"> #}
+        {#                            <svg class="w-2.5 h-2.5" width="16" height="16" viewBox="0 0 16 16" fill="none"> #}
+        {#                                <path d="M11.2792 1.64001L5.63273 7.28646C5.43747 7.48172 5.43747 7.79831 5.63273 7.99357L11.2792 13.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/> #}
+        {#                            </svg> #}
+        {#                            Back to to list #}
+        {#                        </a> #}
+        {#                    </div> #}
+        {#                </header> #}
+        <!-- End Page Heading -->
+        {% block body %}{% endblock %}
+    </div>
+
+    <!-- End Content -->
+    <!-- ========== MAIN CONTENT ========== -->
+    <!-- ========== END MAIN CONTENT ========== -->
+    {% block footer %}
+        <footer class="sticky lg:pl-64 bg-blue-900 text-white p-6 mt-4">
+            <div class="container mx-auto px-6 md:flex justify-between items-center">
+                <div class="mt-6 md:mt-0 md:order-1">
+                    <p class="text-sm text-center md:text-left">&copy; 2024 Fundin.ai. All rights reserved.</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    {#                    <a href="#" class="text-white text-3xl font-bold uppercase"> #}
+                    {#                        <img src="{{ asset('build/img/Fundin2.png') }}" alt="Logo" class="h-8 w-auto sm:h-10"> #}
+                    {#                    </a> #}
+                    <div class="flex md:order-2">
+                        {# <a href="{{ path('app_payment_subscribe') }}" class="mx-3 text-white hover:underline">
+                            Upgrade Account
+                        </a> #}
+                        <a href="{{ path('app_contact_us') }}" class="mx-3 text-white hover:underline">Contact Us</a>
+                        {#                        <a href="#" class="mx-3 text-white hover:underline">Contact</a> #}
+                    </div>
+                </div>
+            </div>
+        </footer>
+    {% endblock %}
+</div>
+</body>
+</html>

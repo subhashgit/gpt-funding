@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <header class="mt-5 mb-10">
+        <div class="flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
+            <a aria-label="Back to list"
+               class="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold text-blue-500 hover:text-blue-700 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm py-3 px-4 dark:ring-offset-slate-900"
+               href="{{ path('app_grant_suggestion') }}">
+                <svg class="w-2.5 h-2.5" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M11.2792 1.64001L5.63273 7.28646C5.43747 7.48172 5.43747 7.79831 5.63273 7.99357L11.2792 13.64"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Back to list
+            </a>
+        </div>
+    </header>
+    <main class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <h1 class="text-3xl font-extrabold text-gray-900 dark:text-gray-50 sm:text-4xl mb-6">
+            <a class="hover:underline text-blue-600"
+               href="{{ path('app_grant_view', {'slug': suggestion.grant.slug}) }}">
+                {{ suggestion.grant.title|title }}
+            </a>
+        </h1>
+        <textarea
+                class="mt-5 block w-full h-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-4 px-6 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-slate-900 dark:text-gray-50"
+                name="description" id="description" cols="20" rows="25"
+                readonly>{{ suggestion.description|raw }}</textarea>
+{#        {% if app.user.points > 0 %}#}
+            <form action="{{ path('app_grant_suggestion_generate', {'slug': suggestion.grant.slug}) }}" method="post">
+                <button type="submit"
+                        class="inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-lg py-3 px-6 shadow-lg mt-6">
+                    Suggest a Project
+                </button>
+{#                <p class="text-xs mt-2 text-gray-600">Clicking on this button will consume 1 credit</p>#}
+            </form>
+{#        {% else %}#}
+{#            <button type="button" data-hs-overlay="#hs-notifications"#}
+{#                    class="inline-flex justify-center items-center gap-2 rounded-lg border border-transparent font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-lg py-3 px-6 shadow-lg mt-6">#}
+{#                Suggest a Project#}
+{#            </button>#}
+{#        {% endif %}#}
+    </main>
+    {{ include('modals/no-points.html.twig', {
+        message: 'You do need to be subscribed to make this action. Please upgrade your account.'
+    }) }}
+{% endblock %}
+
+{% block title %}
+    {{ suggestion.grant.title|title }}
+{% endblock %}
+

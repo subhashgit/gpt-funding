@@ -1,0 +1,50 @@
+meilisearch:
+  url: '%env(MEILISEARCH_URL)%' # URL of the Meilisearch server (mandatory)
+  api_key: '%env(MEILISEARCH_API_KEY)%' # API key to access the Meilisearch server (mandatory)
+  prefix: '%env(MEILISEARCH_PREFIX)%'
+  batchSize: 1000 # Number of entities to index at once (optional)
+  indices:
+    - name: grant
+      class: App\Entity\Grant
+      settings:
+        pagination:
+          maxTotalHits: 100000
+        faceting:
+          maxValuesPerFacet: 100000
+        filterableAttributes:
+          - id
+          - grantLocations
+          - grantCategories
+          - grantOpenTo
+          - status
+          - closing_date
+        searchableAttributes:
+          - title
+          - description
+        sortableAttributes:
+          - id
+          - published_date
+          - closing_date
+
+    - name: funding
+      class: App\Entity\Funding
+#      index_if: indexable
+      settings:
+        pagination:
+          maxTotalHits: 100000
+        filterableAttributes:
+          - id
+          - fundingRegions
+          - mainSectors
+          - status
+          - published_date
+          - closing_date
+          - tags
+          - ocid
+          - hasParent
+        searchableAttributes:
+          - title
+          - description
+        sortableAttributes:
+          - published_date
+          - closing_date

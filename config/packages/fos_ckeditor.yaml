@@ -1,0 +1,54 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+  base_path: "build/ckeditor4"
+  js_path: "build/ckeditor4/ckeditor.js"
+  default_config: my_config
+
+  configs:
+    my_config:
+      versionCheck: false
+      toolbar: "standard"
+      extraPlugins: "autogrow"
+      autoGrow_onStartup: true
+      autoGrow_maxHeight: 3000
+    custom:
+      versionCheck: false
+      # toolbar: "standard"
+      extraPlugins: 'askAI'
+      toolbar:
+          - { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'Undo', 'Redo'] }
+          # - { name: 'clipboard', items: [ 'clipboard', 'undo' ] }
+          # - { name: 'document', items: ['mode', 'document', 'doctools'] }
+          - { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll'] }
+          - { name: 'links', items: ['Link', 'Unlink'] }
+          - { name: 'insert', items: ['Image', 'Table', 'HorizontalRule'] }
+          - { name: 'tools', items: ['Maximize'] }
+          - { name: 'custom', items: ['AskAI','ImproveWriting','ShortenText','LengthenText'] } # Add your custom button here
+          # - { name: 'document', items: [ 'mode', 'document', 'doctools' ] }
+          # - { name: 'clipboard', items: [ 'clipboard', 'undo' ] }
+          # - { name: 'editing', items: [ 'find', 'selection', 'spellchecker', 'editing' ] }
+          # - { name: 'forms', items: [ 'forms' ] },
+          # - { name: 'basicstyles', items: [ 'basicstyles', 'cleanup' ] }
+          # - { name: 'paragraph', items: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] }
+          # - { name: 'links', items: [ 'links' ] }
+          # - { name: 'insert', items: [ 'insert' ] }
+          # - { name: 'styles', items: [ 'styles' ] }
+          # - { name: 'colors', items: [ 'colors' ] }
+          # - { name: 'tools', items: [ 'tools' ] }
+          # - { name: 'others', items: [ 'others' ] }
+          # - { name: 'about', items: [ 'about' ] }
+          # - { name: 'custom', items: ['askAI'] }
+      # removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,Find,Scayt,Underline,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Blockquote,CreateDiv,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Anchor,Image,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,TextColor,Maximize,About,Styles,Font,FontSize,Format,BGColor,ShowBlocks'
+
+  plugins:
+    contextmenu:
+      path: "/public/ckeditor/contextmenu" # with trailing slash
+      filename: "plugin.js"
+
+    simplebutton:
+      path: "/public/ckeditor/simplebutton" # with trailing slash
+      filename: "plugin.js"
+
+twig:
+  form_themes:
+    - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

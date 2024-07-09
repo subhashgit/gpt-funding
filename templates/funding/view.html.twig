@@ -1,0 +1,333 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ funding.title|title }}{% endblock %}
+
+{% block body %}
+{#    {% if not app.user.isSubscriptionActive and (views_exceeded() and not funding|viewed_today) %}#}
+{#        {{ include('utils/points-exceeded.html.twig') }}#}
+{#    {% else %}#}
+        <header>
+            <div class="mt-5 flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
+                <a class="w-full sm:w-auto inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold text-blue-500 hover:text-blue-700 focus:outline-none focus:ring-2 ring-offset-gray-50 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm py-3 px-4 dark:ring-offset-slate-900"
+                   href="{{ path('app_funding') }}">
+                    <svg class="w-2.5 h-2.5" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M11.2792 1.64001L5.63273 7.28646C5.43747 7.48172 5.43747 7.79831 5.63273 7.99357L11.2792 13.64"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Back to list
+                </a>
+            </div>
+        </header>
+        <!-- FAQ -->
+        <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <!-- Title -->
+            <div class="max-w-4xl mx-auto text-center mb-10 lg:mb-14">
+                <h2 class="text-2xl font-bold md:text-3xl md:leading-tight text-gray-800 dark:text-gray-200">
+                    {{ funding.title|title }}
+                </h2>
+            </div>
+            <!-- End Title -->
+
+            <div class="max-w-4xl mx-auto">
+                <!-- Grid -->
+                <div class="grid sm:grid-cols-2 gap-6 md:gap-12">
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            Organisation Name
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {% if app.user.isSubscribed %}
+                                {{ funding.organisationName }}
+                            {% else %}
+                                Organisation Name
+                            {% endif %}
+                        </p>
+                    </div>
+                    <!-- End Col -->
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            Regions
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {% if app.user.isSubscribed %}
+                                {{ funding.fundingRegions|join(', ')|raw }}
+                            {% else %}
+                                Region
+                            {% endif %}
+                        </p>
+                    </div>
+                    <!-- End Col -->
+
+                    {% if buyer and buyer.details %}
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                                Contact Website
+                            </h3>
+                            <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                                {% if app.user.isSubscribed %}
+                                    <a class="text-blue-600 decoration-2 hover:underline font-medium" target="_blank"
+                                       href="{{ buyer.details['url'] }}">{{ buyer.details['url'] }}</a>
+                                {% else %}
+                                    <a class="text-blue-600 decoration-2 hover:underline font-medium" target="_blank"
+                                       href="https://google.com">google.com</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
+                    <!-- End Col -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            Notice Type
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {% if app.user.isSubscribed %}
+                                {{ funding.noticeType }} ({{ funding.ojeuContractType }})
+                            {% else %}
+                                noticeType ContractType
+                            {% endif %}
+                        </p>
+                    </div>
+                    <!-- End Col -->
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            Published Date
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {% if app.user.isSubscribed %}
+                                {{ funding.publishedDate|format_date }}
+                            {% else %}
+                                {{ date()|format_date }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <!-- End Col -->
+
+                    {% if funding.startDate %}
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                                Duration
+                            </h3>
+                            <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                                {% if app.user.isSubscribed %}
+                                    {{ funding.startDate|carbon.diffAsCarbonInterval(funding.closingDate).forHumans() }}
+                                {% else %}
+                                    {{ date()|format_date }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
+                    <!-- End Col -->
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            Delivery
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {% if app.user.isSubscribed %}
+                                {{ funding.endDate|format_date }}
+                            {% else %}
+                                {{ date()|format_date }}
+                            {% endif %}
+                        </p>
+                        </p>
+                    </div>
+                    <!-- End Col -->
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            Value
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {{ funding.valueLow|format_currency('GBP', {
+                                fraction_digit: 0,
+                            }) }}
+                            {% if funding.valueHigh %}
+                                - {{ funding.valueHigh|format_currency('GBP', {
+                                fraction_digit: 0
+                            }) }}
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                            Deadline
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                            {% if app.user.isSubscribed %}
+                                {{ funding.closingDate|format_date }}
+                            {% else %}
+                                {{ date()|format_date }}
+                            {% endif %}
+                        </p>
+                        </p>
+                    </div>
+                    <!-- End Col -->
+                </div>
+                <!-- End Grid -->
+            </div>
+
+            <!-- Blog Article -->
+            <div class="max-w-4xl mx-auto">
+                <div class="max-w-4xl">
+
+                    <blockquote class="text-center p-4 sm:px-7">
+                        <p class="text-md font-medium text-gray-800 md:text-md md:leading-normal md:text-md md:leading-normal dark:text-gray-200">
+                            {{ funding.additionalText|raw }}
+                        </p>
+                        <p class="mt-5 text-gray-800 dark:text-gray-200">
+                            {#                    Nicole Grazioso #}
+                        </p>
+                    </blockquote>
+
+                    <!-- Content -->
+                    <div class="space-y-5 md:space-y-8 relative">
+                        <div class="space-y-3">
+                            <h3 class="text-2xl font-semibold dark:text-white">Description</h3>
+                        </div>
+
+                        <div class="relative">
+                            <p class="text-lg text-gray-800 dark:text-gray-200 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                                {% if app.user.isSubscribed %}
+                                    {{ funding.description|nl2br|raw }}
+                                {% else %}
+                                    {% set sentances = funding.description|split('.')|length %}
+                                    {{ lorem_ipsum(sentances)|join(' ') }}
+                                {% endif %}
+                            </p>
+
+                            {% if not app.user.isSubscribed %}
+                                <button
+                                        data-hs-overlay="#hs-basic-modal"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    Upgrade your account
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="space-y-5 md:space-y-8">
+                        <p></p>
+                        <div class="space-y-3">
+                            <h3 class="text-2xl font-semibold dark:text-white">Sector</h3>
+                        </div>
+                    </div>
+
+                    <ul class="list-disc list-outside space-y-5 pl-5 text-lg text-gray-800 dark:text-gray-200 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        {% for cpv in funding.cpv %}
+                            <li class="pl-2">
+                                {% if app.user.isSubscribed %}
+                                    {{ cpv.code }} - {{ cpv.description }}
+                                {% else %}
+                                    {{ lorem_ipsum(1)|join(' ') }}
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="space-y-5 md:space-y-8">
+                        <p></p>
+                        <div class="space-y-3">
+                            <h3 class="text-2xl font-semibold dark:text-white">Indicators</h3>
+                        </div>
+                    </div>
+
+                    <ul class="list-disc list-outside space-y-5 pl-5 text-lg text-gray-800 dark:text-gray-200 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        <li class="pl-2">
+                            Contract is suitable for SMEs - {{ funding.suitableForSme ? 'Yes' : 'No' }}
+                        </li>
+                        <li class="pl-2">
+                            Contract is suitable for VCOs - {{ funding.suitableForVco ? 'Yes' : 'No' }}
+                        </li>
+                    </ul>
+                    <!-- End Content -->
+                    <div class="space-y-5 md:space-y-8">
+                        <p></p>
+                        <div class="space-y-3">
+                            <h3 class="text-2xl font-semibold dark:text-white">Links</h3>
+                        </div>
+                    </div>
+                    <ul class="list-disc list-outside space-y-5 pl-5 text-lg text-gray-800 dark:text-gray-200 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        <li class="pl-2">
+                            <a class="text-blue-600 decoration-2 hover:underline font-medium" target="_blank"
+                               href="{{ funding.externalLink }}">Origin link</a>
+                        </li>
+                        {% for link in funding.links %}
+                            {% if link %}
+                                <li class="pl-2">
+
+                                    {% if app.user.isSubscribed %}
+                                        <a class="text-blue-600 decoration-2 hover:underline font-medium"
+                                           target="_blank"
+                                           href="{{ link }}">{{ link|parse_url.host }}</a>
+                                    {% else %}
+                                        <a class="text-blue-600 decoration-2 hover:underline font-medium"
+                                           target="_blank"
+                                           href="https://google.com">google.com</a>
+                                    {% endif %}
+
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                    <div class="space-y-5 md:space-y-8">
+                        <p></p>
+                        <div class="space-y-3">
+                            <h3 class="text-2xl font-semibold dark:text-white">About the buyer</h3>
+                        </div>
+                    </div>
+
+                    <ul class="list-disc list-outside space-y-5 pl-5 text-lg text-gray-800 dark:text-gray-200 {% if not app.user.isSubscribed %}blur-sm{% endif %}">
+                        <li class="pl-2">
+                            {% if app.user.isSubscribed %}
+                                Contact Name - {{ buyer.contactPoint['name'] }}
+                            {% else %}
+                                Contact Name - {{ lorem_ipsum(1)|join(' ') }}
+                            {% endif %}
+                        </li>
+                        <li class="pl-2">
+                            {% if app.user.isSubscribed %}
+                                Address - {{ buyer.address['streetAddress'] }}, {{ buyer.address['locality'] }}
+                                , {{ buyer.address['postalCode'] }}
+                            {% else %}
+                                Address - {{ lorem_ipsum(1)|join(' ') }}
+                            {% endif %}
+                        </li>
+                        <li class="pl-2">
+                            {% if app.user.isSubscribed %}
+                                Email -
+                                <a href="mailto:{{ buyer.contactPoint['email']|lower }}">{{ buyer.contactPoint['email']|lower }}</a>
+                            {% else %}
+                                Email - {{ lorem_ipsum(1)|join(' ') }}
+                            {% endif %}
+                        </li>
+                        <li class="pl-2">
+                            {% if app.user.isSubscribed %}
+                                Phone - {{ buyer.contactPoint['telephone'] }}
+                            {% else %}
+                                Phone - {{ lorem_ipsum(1)|join(' ') }}
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Blog Article -->
+        </div>
+        <!-- End FAQ -->
+        {{ include('modals/no-points.html.twig', {
+            message: 'You do need to be subscribed to make this action. Please upgrade your account.'
+        }) }}
+
+{#    {% endif %}#}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{#    {% if not views_exceeded_this_month() %}#}
+{#        {{ include('utils/subscribe-banner.html.twig') }}#}
+{#    {% endif %}#}
+{% endblock %}

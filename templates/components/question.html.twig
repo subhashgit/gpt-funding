@@ -1,0 +1,94 @@
+<div{{ attributes }}>
+    <div id="wizard_container">
+        <div id="top-wizard">
+            <div id="progressbar"></div>
+        </div>
+        <!-- /top-wizard -->
+        {#                    <form id="wrapped" method="POST"> #}
+
+        {% if not this.submitted %}
+            {{ form_start(form) }}
+
+            <input id="website" name="website" type="text" value="">
+            <div id="middle-wizard">
+
+
+                <div class="step">
+                    <h3 class="main_question"><strong>1/2</strong>Section A: About the project</h3>
+                    {% for key, questionForm in form.questions %}
+
+                        {% if questionForm.vars.data.section == 'B' %}
+                            <div id="questionnaire_questions_{{ key }}">
+                                <div class="form-group">
+                                    <label>{{ questionForm.vars.data.question }}</label>
+                                    {{ form_widget(questionForm.answer, {
+                                        'attr': {
+                                            'placeholder': false,
+                                        }
+                                    }) }}
+                                </div>
+                            </div>
+                            {% do form.questions[key].setRendered %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="step submit ">
+                    <h3 class="main_question"><strong>2/2 </strong>Section B: About the fund</h3>
+                    Please insert any questions from the funder.
+                    <ul>
+                        <li>List any relevant information to this question.</li>
+                        <li>Guidance from the funder.</li>
+                        <li>Max word count.</li>
+                    </ul>
+                    {% for key, questionForm in form.questions %}
+                        {% if not form.questions[key].isRendered %}
+                            {{ form_widget(questionForm) }}
+                        {% endif %}
+                    {% endfor %}
+                    <button
+                            data-action="live#action"
+                            data-action-name="addQuestion"
+                            type="button"
+                            class="content-right"
+                            style="border: none;
+    color: #fff;
+    text-decoration: none;
+    transition: background .5s ease;
+    -moz-transition: background .5s ease;
+    -webkit-transition: background .5s ease;
+    -o-transition: background .5s ease;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    background: #434bdf;
+    position: relative;
+    font-size: 14px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    line-height: 1;
+    padding: 12px 30px;"
+                    >+ Add question
+                    </button>
+
+                </div>
+
+
+            </div>
+
+            <div id="bottom-wizard">
+                <button type="button" name="backward" class="backward">Prev</button>
+                <button type="button" name="forward" class="forward">Next</button>
+                <button type="submit" name="process" class="submit">Submit</button>
+            </div>
+            {{ form_end(form) }}
+        {% else %}
+        {% endif %}
+
+    </div>
+</div>

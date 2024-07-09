@@ -1,0 +1,177 @@
+{# https://gist.github.com/briancollins/6365455 #}
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+        <!-- Card Section -->
+        <div class="max-w-2xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <!-- Card -->
+            <div class="bg-white rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">
+                        Payment
+                    </h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                    </p>
+                </div>
+
+                <form action="{{ actionUrl|default('') }}" method="POST" id="payment-form">
+                    {#                <!-- Section --> #}
+                    {#                <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700"> #}
+                    {#                    <label for="af-payment-billing-contact" class="inline-block text-sm font-medium dark:text-white"> #}
+                    {#                        Billing contact #}
+                    {#                    </label> #}
+
+                    {#                    <div class="mt-2 space-y-3"> #}
+                    {#                        <input id="af-payment-billing-contact" type="text" #}
+                    {#                               class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                    {#                               placeholder="First Name"> #}
+                    {#                        <input type="text" #}
+                    {#                               class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                    {#                               placeholder="Last Name"> #}
+                    {#                        <input type="text" #}
+                    {#                               class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                    {#                               placeholder="Phone Number"> #}
+                    {#                    </div> #}
+                    {#                </div> #}
+                    {#                <!-- End Section --> #}
+
+                    {#                <!-- Section --> #}
+                    {#                <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700"> #}
+                    {#                    <label for="af-payment-billing-address" class="inline-block text-sm font-medium dark:text-white"> #}
+                    {#                        Billing address #}
+                    {#                    </label> #}
+
+                    {#                    <div class="mt-2 space-y-3"> #}
+                    {#                        <input id="af-payment-billing-address" type="text" #}
+                    {#                               class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                    {#                               placeholder="Street Address"> #}
+                    {#                        <input type="text" #}
+                    {#                               class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                    {#                               placeholder="Apt, Syuite, Building (Optional)"> #}
+                    {#                        <div class="sm:flex gap-3"> #}
+                    {#                            <input type="text" #}
+                    {#                                   class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                    {#                                   placeholder="Zip Code"> #}
+                    {#                            <select class="py-2 px-3 pr-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"> #}
+                    {#                                <option selected="">City</option> #}
+                    {#                                <option>City 1</option> #}
+                    {#                                <option>City 2</option> #}
+                    {#                                <option>City 3</option> #}
+                    {#                            </select> #}
+                    {#                            <select class="py-2 px-3 pr-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"> #}
+                    {#                                <option selected="">State</option> #}
+                    {#                                <option>State 1</option> #}
+                    {#                                <option>State 2</option> #}
+                    {#                                <option>State 3</option> #}
+                    {#                            </select> #}
+                    {#                        </div> #}
+                    {#                    </div> #}
+                    {#                </div> #}
+                    {#                <!-- End Section --> #}
+
+                    <!-- Section -->
+                    <div class="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700">
+                        <label for="af-payment-payment-method" class="inline-block text-sm font-medium dark:text-white">
+                        </label>
+
+                        <p>
+
+                            <span class="payment-errors bg-red-500"></span>
+                        </p>
+
+                        <div class="mt-2 space-y-3">
+                            {#                        <input id="af-payment-payment-method" type="text" #}
+                            {#                               class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" #}
+                            {#                               placeholder="Name on Card"> #}
+                            <input type="text"
+                                   class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                   size="20" data-stripe="number"
+                                   value="4242424242424242"
+                                   placeholder="Card Number">
+                            <div class="sm:flex gap-3">
+                                <input type="text"
+                                       value="1"
+                                       size="2" data-stripe="exp-month"
+                                       class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                       placeholder="Expiration Month">
+                                <input type="text"
+                                       value="2024"
+                                       size="4" data-stripe="exp-year"
+                                       class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                       placeholder="Expiration Year">
+                                <input type="text"
+                                       value="123"
+                                       size="3" data-stripe="cvc"
+                                       class="py-2 px-3 pr-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                       placeholder="CVV Code">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Section -->
+                </form>
+
+                <div class="mt-5 flex justify-end gap-x-2">
+                    {#                <button type="button" #}
+                    {#                        class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"> #}
+                    {#                    Cancel #}
+                    {#                </button> #}
+                    <button type="submit"
+                            form="payment-form"
+                            class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                        Pay Now
+                    </button>
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $('#payment-form').submit(function (e) {
+                const $form = $(this);
+
+                // Disable the submit button to prevent repeated clicks
+                $form.find('button').prop('disabled', true);
+
+                // This identifies your website in the createToken call below
+                Stripe.setPublishableKey({{ publishable_key|json_encode|raw }});
+
+                Stripe.card.createToken($form, stripeResponseHandler);
+
+                // Prevent the form from submitting with the default action
+                return false;
+            });
+
+            var stripeResponseHandler = function (status, response) {
+                var $form = $('#payment-form');
+
+                if (response.error) {
+                    // Show the errors on the form
+                    $form.find('.payment-errors').text(response.error.message);
+                    $form.find('button').prop('disabled', false);
+                } else {
+                    // token contains id, last4, and card type
+                    var token = response.id;
+                    // Insert the token into the form so it gets submitted to the server
+                    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                    // and re-submit
+                    $form.get(0).submit();
+                }
+            };
+        });
+    </script>
+    <!-- End Card Section -->
+{% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <!-- The required Stripe lib -->
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+        <!-- jQuery is used only for this example; it isn't required to use Stripe -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+
+    {% endblock %}
